@@ -7,7 +7,8 @@
   var bubble = document.getElementById('rmBubble');
 
   /* ===== Lời thoại: sửa danh sách này để đổi câu nói ===== */
-  var messages = [
+  // Câu thoại EN / JA nằm trong i18n.js (khóa 'robot.messages'); đây chỉ là bản dự phòng
+  var FALLBACK = [
     'Hello! 👋',
     "I'm Anh Tuan's robot!",
     'Welcome to my portfolio!',
@@ -15,6 +16,10 @@
     "Let's build something together!",
     'Feel free to contact me 😊'
   ];
+  function getMessages() {
+    var m = window.I18N && window.I18N.t('robot.messages');
+    return Array.isArray(m) && m.length ? m : FALLBACK;
+  }
   var INTERVAL = 2000; // 2 giây đổi một câu
 
   /* ===== Mắt nhìn theo con trỏ ===== */
@@ -39,11 +44,23 @@
     clearTimeout(hideTimer);
     // ẩn rất ngắn rồi hiện câu mới để có hiệu ứng "bật ra"
     hideTimer = setTimeout(function () {
+      var messages = getMessages();
+      idx = idx % messages.length;
       bubble.textContent = messages[idx];
       idx = (idx + 1) % messages.length;
       bubble.classList.add('is-on');
     }, 220);
   }
+
+  // đổi ngôn ngữ -> robot nói lại từ đầu bằng ngôn ngữ mới
+  document.addEventListener('languagechange', function () {
+    idx = 0;
+    if (timer) {
+      clearInterval(timer);
+      speak();
+      timer = setInterval(speak, INTERVAL);
+    }
+  });
 
   function start() {
     if (timer) return;

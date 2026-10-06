@@ -7,6 +7,11 @@
 
   var body = document.body;
 
+  /* ---------- Dịch (lấy từ i18n.js nếu có) ---------- */
+  function tr(key, fallback) {
+    return (window.I18N && window.I18N.t(key)) || fallback;
+  }
+
   /* ---------- Năm ở footer ---------- */
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -139,7 +144,7 @@
       fMsg.classList.toggle('invalid', !msg);
 
       if (!name || !emailOk || !msg) {
-        setStatus('Please fill in all fields with a valid email.', 'error');
+        setStatus(tr('form.error', 'Please fill in all fields with a valid email.'), 'error');
         return;
       }
 
@@ -151,7 +156,7 @@
         '?subject=' + encodeURIComponent(subject) +
         '&body=' + encodeURIComponent(text);
 
-      setStatus('Thanks! Opening your email app…', 'ok');
+      setStatus(tr('form.ok', 'Thanks! Opening your email app…'), 'ok');
       form.reset();
     });
   }
