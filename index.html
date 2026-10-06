@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="robot-widget.css">
 </head>
 
 <body>
@@ -270,7 +271,48 @@
     </footer>
   </main>
 
+  <!-- ROBOT MASCOT + SPEECH BUBBLE -->
+  <div class="robot-mascot" id="robotMascot" aria-hidden="true">
+    <div class="rm-bubble" id="rmBubble"></div>
+
+    <svg class="rm-svg" viewBox="0 0 260 300" xmlns="http://www.w3.org/2000/svg">
+      <g class="rm-antenna">
+        <line x1="130" y1="50" x2="130" y2="27" stroke="#1F2933" stroke-width="4" stroke-linecap="round" />
+        <circle cx="130" cy="18" r="9" fill="#FFB020" stroke="#1F2933" stroke-width="4" />
+      </g>
+
+      <rect class="rm-metal" x="32" y="86" width="20" height="44" rx="8" />
+      <rect class="rm-metal" x="208" y="86" width="20" height="44" rx="8" />
+
+      <rect class="rm-cas" x="48" y="50" width="164" height="112" rx="34" />
+      <rect class="rm-dark" x="66" y="68" width="128" height="76" rx="22" />
+
+      <g id="rmEyes">
+        <ellipse class="rm-eye" cx="103" cy="100" rx="13" ry="15" />
+        <ellipse class="rm-eye" cx="157" cy="100" rx="13" ry="15" />
+      </g>
+
+      <path d="M112 127 Q130 138 148 127" fill="none" stroke="#00C2E0" stroke-width="4" stroke-linecap="round" />
+
+      <rect class="rm-metal" x="112" y="162" width="36" height="14" rx="4" />
+
+      <rect class="rm-metal" x="26" y="192" width="24" height="72" rx="12" />
+      <rect class="rm-metal" x="210" y="192" width="24" height="72" rx="12" />
+
+      <rect class="rm-cas" x="58" y="174" width="144" height="112" rx="28" />
+      <rect class="rm-dark" x="82" y="196" width="96" height="52" rx="12" />
+
+      <text x="130" y="231" text-anchor="middle" font-family="Inter, sans-serif" font-size="26" font-weight="800"
+        fill="#7BE7F7">AT</text>
+
+      <circle cx="98" cy="267" r="5" fill="#FFB020" />
+      <circle cx="130" cy="267" r="5" fill="#00C2E0" />
+      <circle cx="162" cy="267" r="5" fill="#FFFFFF" stroke="#1F2933" stroke-width="2" />
+    </svg>
+  </div>
+
   <script src="script.js"></script>
+  <script src="robot-widget.js"></script>
 </body>
 
 </html>

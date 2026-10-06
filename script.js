@@ -1,146 +1,158 @@
+/* =========================================================
+   Portfolio — Nguyen Anh Tuan  (script.js)
+   Reveal on scroll · intro · menu · active nav · carousel · form
+   ========================================================= */
 (function () {
   'use strict';
 
-  const CONTACT_EMAIL = 'z2242505@std.kiis.ac.jp';
+  var body = document.body;
 
   /* ---------- Năm ở footer ---------- */
-  const yearEl = document.getElementById('year');
+  var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ---------- Intro: bấm để bỏ qua ---------- */
-  const intro = document.getElementById('intro');
+  var intro = document.getElementById('intro');
   if (intro) {
-    intro.addEventListener('click', () => intro.classList.add('hide'));
+    intro.addEventListener('click', function () {
+      intro.classList.add('hide');
+    });
   }
 
-  /* ---------- Ảnh / video lỗi: ẩn đi để hiện nền dự phòng ---------- */
-  document.querySelectorAll('img').forEach((img) => {
-    img.addEventListener('error', () => { img.style.display = 'none'; });
-  });
-  document.querySelectorAll('video').forEach((video) => {
-    video.addEventListener('error', () => { video.style.display = 'none'; }, true);
-    // Tôn trọng người dùng tắt hiệu ứng chuyển động
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) video.pause();
-  });
+  /* ---------- Hiện nội dung khi cuộn tới (.reveal -> .visible) ---------- */
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-  /* ---------- Menu mobile ---------- */
-  const burger = document.querySelector('.burger');
-  const navLinks = document.querySelectorAll('.nav-links a');
+    reveals.forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  /* ---------- Menu burger (mobile) ---------- */
+  var burger = document.querySelector('.burger');
+  var navLinks = document.querySelectorAll('.nav-links a');
 
   function setMenu(open) {
-    document.body.classList.toggle('menu-open', open);
+    body.classList.toggle('menu-open', open);
     if (burger) burger.setAttribute('aria-expanded', String(open));
   }
 
   if (burger) {
-    burger.addEventListener('click', () => {
-      setMenu(!document.body.classList.contains('menu-open'));
+    burger.addEventListener('click', function () {
+      setMenu(!body.classList.contains('menu-open'));
     });
   }
-  navLinks.forEach((a) => a.addEventListener('click', () => setMenu(false)));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
-  window.addEventListener('resize', () => { if (window.innerWidth > 800) setMenu(false); });
-
-  /* ---------- Hiệu ứng xuất hiện khi cuộn ---------- */
-  const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach((el) => io.observe(el));
-  } else {
-    reveals.forEach((el) => el.classList.add('visible'));
-  }
-
-  /* ---------- Đánh dấu mục menu đang xem ---------- */
-  const sections = Array.from(navLinks)
-    .map((a) => document.querySelector(a.getAttribute('href')))
-    .filter(Boolean);
-
-  function updateActive() {
-    const y = window.scrollY + 140;
-    let current = sections[0];
-    sections.forEach((s) => { if (s.offsetTop <= y) current = s; });
-    navLinks.forEach((a) => {
-      a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id);
-    });
-  }
-  window.addEventListener('scroll', updateActive, { passive: true });
-  updateActive();
-
-  /* ---------- Carousel dự án ---------- */
-  const track = document.getElementById('projectsTrack');
-  const prevBtn = document.querySelector('.scroll-btn.prev');
-  const nextBtn = document.querySelector('.scroll-btn.next');
-
-  if (track && prevBtn && nextBtn) {
-    const step = () => {
-      const card = track.querySelector('.project');
-      return card ? card.offsetWidth + 20 : 320;
-    };
-
-    const updateButtons = () => {
-      const max = track.scrollWidth - track.clientWidth - 2;
-      prevBtn.disabled = track.scrollLeft <= 2;
-      nextBtn.disabled = track.scrollLeft >= max;
-    };
-
-    prevBtn.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
-    nextBtn.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
-    track.addEventListener('scroll', updateButtons, { passive: true });
-    window.addEventListener('resize', updateButtons);
-    updateButtons();
-  }
-
-  /* ---------- Link "#" chưa có địa chỉ: không nhảy lên đầu trang ---------- */
-  document.querySelectorAll('a[href="#"]').forEach((a) => {
-    a.addEventListener('click', (e) => e.preventDefault());
+  navLinks.forEach(function (a) {
+    a.addEventListener('click', function () { setMenu(false); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setMenu(false);
   });
 
-  /* ---------- Form liên hệ ---------- */
-  const form = document.getElementById('contactForm');
-  const statusEl = document.getElementById('formStatus');
+  /* ---------- Đánh dấu mục menu đang xem ---------- */
+  var sections = ['home', 'about', 'projects', 'experience', 'contact']
+    .map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
 
-  function setStatus(text, type) {
-    if (!statusEl) return;
-    statusEl.textContent = text;
-    statusEl.className = 'form-status' + (type ? ' ' + type : '');
+  function setActive(id) {
+    navLinks.forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+
+  function onScrollSpy() {
+    var y = window.scrollY + 140;
+    var current = sections[0] ? sections[0].id : 'home';
+    sections.forEach(function (s) {
+      if (s.offsetTop <= y) current = s.id;
+    });
+    // cuối trang -> mục cuối
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4 && sections.length) {
+      current = sections[sections.length - 1].id;
+    }
+    setActive(current);
+  }
+  window.addEventListener('scroll', onScrollSpy, { passive: true });
+  onScrollSpy();
+
+  /* ---------- Carousel dự án ---------- */
+  var track = document.getElementById('projectsTrack');
+  var prev = document.querySelector('.scroll-btn.prev');
+  var next = document.querySelector('.scroll-btn.next');
+
+  function updateArrows() {
+    if (!track || !prev || !next) return;
+    prev.disabled = track.scrollLeft <= 4;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  }
+
+  function scrollTrack(dir) {
+    if (!track) return;
+    track.scrollBy({ left: dir * Math.max(track.clientWidth * 0.8, 280), behavior: 'smooth' });
+  }
+
+  if (track && prev && next) {
+    prev.addEventListener('click', function () { scrollTrack(-1); });
+    next.addEventListener('click', function () { scrollTrack(1); });
+    track.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+  }
+
+  /* ---------- Form liên hệ ---------- */
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+
+  function setStatus(msg, type) {
+    if (!status) return;
+    status.textContent = msg;
+    status.className = 'form-status' + (type ? ' ' + type : '');
   }
 
   if (form) {
-    form.addEventListener('submit', (e) => {
+    var fName = form.elements['name'];
+    var fEmail = form.elements['email'];
+    var fMsg = form.elements['message'];
+
+    [fName, fEmail, fMsg].forEach(function (f) {
+      f.addEventListener('input', function () { f.classList.remove('invalid'); });
+    });
+
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const name = form.elements.name.value.trim();
-      const email = form.elements.email.value.trim();
-      const message = form.elements.message.value.trim();
+      var name = fName.value.trim();
+      var email = fEmail.value.trim();
+      var msg = fMsg.value.trim();
+      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-      let valid = true;
-      [form.elements.name, form.elements.email, form.elements.message].forEach((field) => {
-        const ok = field.value.trim() !== '' && field.checkValidity();
-        field.classList.toggle('invalid', !ok);
-        if (!ok) valid = false;
-      });
+      fName.classList.toggle('invalid', !name);
+      fEmail.classList.toggle('invalid', !emailOk);
+      fMsg.classList.toggle('invalid', !msg);
 
-      if (!valid) {
-        setStatus('Please fill in all fields correctly.', 'error');
+      if (!name || !emailOk || !msg) {
+        setStatus('Please fill in all fields with a valid email.', 'error');
         return;
       }
 
-      const subject = encodeURIComponent('Contact from portfolio: ' + name);
-      const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
-      setStatus('Opening your email app…', 'ok');
-      window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
-    });
+      // Chưa có backend: mở ứng dụng email với nội dung đã điền
+      var to = 'z2242505@std.kiis.ac.jp';
+      var subject = 'Portfolio contact from ' + name;
+      var text = msg + '\n\n— ' + name + ' (' + email + ')';
+      window.location.href = 'mailto:' + to +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(text);
 
-    form.addEventListener('input', (e) => {
-      e.target.classList.remove('invalid');
-      setStatus('', '');
+      setStatus('Thanks! Opening your email app…', 'ok');
+      form.reset();
     });
   }
 })();
