@@ -19,6 +19,7 @@
       'lang.group': 'Language',
       'aria.menu': 'Toggle menu',
       'aria.nav': 'Main navigation',
+      'aria.theme': 'Switch between light and dark mode',
 
       'intro.welcome': 'Welcome to my Portfolio',
 
@@ -27,6 +28,7 @@
       'nav.projects': 'Projects',
       'nav.experience': 'Experience',
       'nav.contact': 'Contact',
+      'nav.roadmap': 'Roadmap',
 
       'hero.eyebrow': 'Web Developer · Fukuoka, Japan',
       'hero.hello': "Hello, I'm <strong>Nguyen Anh Tuan</strong>",
@@ -61,6 +63,8 @@
       'proj.dash': 'Mini Dashboard',
       'proj.p4': 'Project 04',
       'proj.p5': 'Project 05',
+      'alt.food': 'Food Order Page preview',
+      'alt.robot': 'Robot Page preview',
       'alt.dash': 'Mini Dashboard preview',
       'alt.p4': 'Project 4 preview',
       'alt.p5': 'Project 5 preview',
@@ -73,13 +77,31 @@
       'aria.live': 'Live demo',
       'aria.repo': 'GitHub repository',
 
-      'exp.title': 'Experience',
+      'exp.title': 'Experience & Education',
       'exp.job1': 'Part-time server',
       'exp.job1when': 'Restaurant · 2025 — present',
       'exp.job1text': 'Working evenings while studying web development.',
       'exp.job2': 'Student, Information Technology',
       'exp.job2when': 'Kyushu University of Information Science',
       'exp.job2text': 'Majoring in IT, building web projects alongside coursework.',
+      'exp.job3': '九州日本語学院 (Japanese language school)',
+      'exp.job3when': 'Enrolled: 2022 · 🎓 Graduated: 2024',
+      'exp.job3text': 'Japanese language studies, working towards JLPT N2.',
+      'exp.job4': 'Hanoi College of Technology and Commerce',
+      'exp.job4when': '🎓 Graduated: 2018 · Hanoi, Vietnam',
+      'exp.job4text': 'Completed my college studies in Hanoi, Vietnam.',
+
+      'road.title': 'Future Roadmap',
+      'road.intro': 'Growing step by step — from front-end, to back-end, to full-stack developer.',
+      'road.now': 'Now',
+      'road.next': 'Next',
+      'road.goal': 'Goal',
+      'road.s1.title': 'Front-end',
+      'road.s1.text': 'Building responsive, user-friendly interfaces and sharpening my skills in React.',
+      'road.s2.title': 'Back-end',
+      'road.s2.text': 'Learning to build servers and APIs with Node.js and PHP, and to work with databases.',
+      'road.s3.title': 'Full-stack',
+      'road.s3.text': 'Bringing everything together to design, build and publish complete web applications on my own.',
 
       'contact.title': 'Contact',
       'contact.intro': 'Want to work together? Send me an email or use the form below.',
@@ -102,6 +124,8 @@
         'Welcome to my portfolio!',
         'Check out the Projects!',
         "Let's build something together!",
+        'My goal: Full-stack! 🚀',
+        'Try the light / dark switch 🌗',
         'Feel free to contact me 😊'
       ]
     },
@@ -112,6 +136,7 @@
       'lang.group': '言語',
       'aria.menu': 'メニューを開閉',
       'aria.nav': 'メインナビゲーション',
+      'aria.theme': 'ライトモードとダークモードを切り替え',
 
       'intro.welcome': '私のポートフォリオへようこそ',
 
@@ -120,6 +145,7 @@
       'nav.projects': '作品',
       'nav.experience': '経歴',
       'nav.contact': 'お問い合わせ',
+      'nav.roadmap': '目標',
 
       'hero.eyebrow': 'Web開発者 · 日本・福岡',
       'hero.hello': 'こんにちは、<strong>Nguyen Anh Tuan</strong>です',
@@ -154,6 +180,8 @@
       'proj.dash': 'ミニダッシュボード',
       'proj.p4': 'プロジェクト04',
       'proj.p5': 'プロジェクト05',
+      'alt.food': '料理注文ページのプレビュー',
+      'alt.robot': 'ロボットページのプレビュー',
       'alt.dash': 'ミニダッシュボードのプレビュー',
       'alt.p4': 'プロジェクト4のプレビュー',
       'alt.p5': 'プロジェクト5のプレビュー',
@@ -166,13 +194,31 @@
       'aria.live': 'ライブデモ',
       'aria.repo': 'GitHubリポジトリ',
 
-      'exp.title': '経歴',
+      'exp.title': '経歴・学歴',
       'exp.job1': 'アルバイト（ホールスタッフ）',
       'exp.job1when': '飲食店 · 2025年 — 現在',
       'exp.job1text': 'Web開発を学びながら、夜に勤務しています。',
       'exp.job2': '学生（情報技術専攻）',
       'exp.job2when': '九州情報大学',
       'exp.job2text': '情報技術を専攻し、授業と並行してWebプロジェクトを制作しています。',
+      'exp.job3': '九州日本語学院（日本語学校）',
+      'exp.job3when': '入学：2022年 · 🎓 卒業：2024年',
+      'exp.job3text': '日本語を学び、JLPT N2を目指しています。',
+      'exp.job4': 'Hanoi College of Technology and Commerce（ハノイ工商技術カレッジ）',
+      'exp.job4when': '🎓 卒業：2018年 · ベトナム・ハノイ',
+      'exp.job4text': 'ベトナム・ハノイのカレッジで学びました。',
+
+      'road.title': '今後の目標',
+      'road.intro': 'フロントエンドからバックエンド、そしてフルスタック開発者へ。一歩ずつ成長していきます。',
+      'road.now': '現在',
+      'road.next': '次',
+      'road.goal': '目標',
+      'road.s1.title': 'フロントエンド',
+      'road.s1.text': 'レスポンシブで使いやすいUIを作り、Reactのスキルを磨いています。',
+      'road.s2.title': 'バックエンド',
+      'road.s2.text': 'Node.jsとPHPでサーバーやAPIを作り、データベースを扱えるように学びます。',
+      'road.s3.title': 'フルスタック',
+      'road.s3.text': 'すべてを組み合わせて、Webアプリを設計・開発・公開まで一人で担えるようになります。',
 
       'contact.title': 'お問い合わせ',
       'contact.intro': '一緒にお仕事しませんか？メールまたは下のフォームからご連絡ください。',
@@ -195,6 +241,8 @@
         'ポートフォリオへようこそ！',
         '作品もぜひ見てね！',
         '一緒に何か作りましょう！',
+        '目標はフルスタック！🚀',
+        'ライト/ダーク切り替えも試してね 🌗',
         'お気軽にご連絡ください 😊'
       ]
     }

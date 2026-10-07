@@ -16,6 +16,40 @@
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- Chế độ sáng / tối ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeToggle');
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    if (themeBtn) themeBtn.setAttribute('aria-pressed', String(t === 'light'));
+    if (themeMeta) themeMeta.setAttribute('content', t === 'light' ? '#eef3fb' : '#0b1020');
+  }
+  applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.classList.add('theme-anim');          // chuyển màu mượt
+      applyTheme(next);
+      try { localStorage.setItem('portfolio-theme', next); } catch (e) { /* bỏ qua */ }
+      setTimeout(function () { root.classList.remove('theme-anim'); }, 450);
+    });
+  }
+
+  /* ---------- Thanh tiến trình cuộn ---------- */
+  var progress = document.getElementById('scrollProgress');
+  function updateProgress() {
+    if (!progress) return;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    progress.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
   /* ---------- Intro: bấm để bỏ qua ---------- */
   var intro = document.getElementById('intro');
   if (intro) {
@@ -63,7 +97,7 @@
   });
 
   /* ---------- Đánh dấu mục menu đang xem ---------- */
-  var sections = ['home', 'about', 'projects', 'experience', 'contact']
+  var sections = ['home', 'about', 'projects', 'experience', 'roadmap', 'contact']
     .map(function (id) { return document.getElementById(id); })
     .filter(Boolean);
 

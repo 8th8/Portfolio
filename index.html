@@ -7,7 +7,17 @@
   <meta name="description" content="Portfolio of Nguyen Anh Tuan — Web Developer based in Fukuoka, Japan." />
   <title>Nguyễn Anh Tuấn — Portfolio</title>
 
-  <script>document.documentElement.classList.add('js');</script>
+  <meta name="theme-color" content="#0b1020" />
+
+  <!-- Đặt theme sáng/tối ngay từ đầu để tránh bị nháy màu khi tải trang -->
+  <script>
+    document.documentElement.classList.add('js');
+    (function () {
+      var t = 'dark';
+      try { if (localStorage.getItem('portfolio-theme') === 'light') t = 'light'; } catch (e) { }
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,6 +29,9 @@
 </head>
 
 <body>
+
+  <!-- Thanh tiến trình cuộn trang -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <!-- INTRO (tự ẩn bằng CSS sau ~3s, bấm vào để bỏ qua) -->
   <div id="intro" aria-hidden="true">
@@ -55,6 +68,7 @@
         <a href="#projects"><i class="fa-solid fa-folder-open"></i> <span data-i18n="nav.projects">Projects</span></a>
         <a href="#experience"><i class="fa-solid fa-briefcase"></i> <span
             data-i18n="nav.experience">Experience</span></a>
+        <a href="#roadmap"><i class="fa-solid fa-route"></i> <span data-i18n="nav.roadmap">Roadmap</span></a>
         <a href="#contact"><i class="fa-solid fa-envelope"></i> <span data-i18n="nav.contact">Contact</span></a>
       </nav>
 
@@ -63,6 +77,14 @@
         <button type="button" data-lang="en" aria-pressed="true">EN</button>
         <button type="button" data-lang="ja" aria-pressed="false" lang="ja">日本語</button>
       </div>
+
+      <!-- NÚT CHUYỂN SÁNG / TỐI -->
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false"
+        aria-label="Switch between light and dark mode" title="Light / Dark"
+        data-i18n-attr="aria-label:aria.theme;title:aria.theme">
+        <i class="fa-solid fa-sun" aria-hidden="true"></i>
+        <i class="fa-solid fa-moon" aria-hidden="true"></i>
+      </button>
     </div>
   </header>
 
@@ -166,7 +188,8 @@
 
           <article class="card project">
             <div class="thumb">
-              <a href="https://8th8.github.io/restaurant/"><img src="/Portfolio/image/sushi.png" alt=""></a>
+              <a href="https://8th8.github.io/restaurant/"><img src="./image/sushi.png" alt="Food Order Page preview"
+                  data-i18n-attr="alt:alt.food" loading="lazy"></a>
             </div>
             <h4 data-i18n="proj.food">Food Order Page</h4>
             <p class="muted">HTML • CSS • JS</p>
@@ -182,7 +205,8 @@
 
           <article class="card project">
             <div class="thumb">
-              <a href="https://8th8.github.io/robot/"><img src="/Portfolio/image/robot.png" alt=""></a>
+              <a href="https://8th8.github.io/robot/"><img src="./image/robot.png" alt="Robot Page preview"
+                  data-i18n-attr="alt:alt.robot" loading="lazy"></a>
             </div>
             <h4 data-i18n="proj.robot">Robot Page</h4>
             <p class="muted">HTML • CSS • JS</p>
@@ -249,16 +273,89 @@
       </div>
       <div class="timeline">
         <div class="item">
-          <strong data-i18n="exp.job1">Part-time server</strong>
-          <span class="when" data-i18n="exp.job1when">Restaurant · 2025 — present</span>
-          <p data-i18n="exp.job1text">Working evenings while studying web development.</p>
+          <span class="item-icon"><i class="fa-solid fa-utensils"></i></span>
+          <div class="item-body">
+            <strong data-i18n="exp.job1">Part-time server</strong>
+            <span class="when" data-i18n="exp.job1when">Restaurant · 2025 — present</span>
+            <p data-i18n="exp.job1text">Working evenings while studying web development.</p>
+          </div>
         </div>
         <div class="item">
-          <strong data-i18n="exp.job2">Student, Information Technology</strong>
-          <span class="when" data-i18n="exp.job2when">Kyushu University of Information Science</span>
-          <p data-i18n="exp.job2text">Majoring in IT, building web projects alongside coursework.</p>
+          <span class="item-icon"><i class="fa-solid fa-laptop-code"></i></span>
+          <div class="item-body">
+            <strong data-i18n="exp.job2">Student, Information Technology</strong>
+            <span class="when" data-i18n="exp.job2when">Kyushu University of Information Science</span>
+            <p data-i18n="exp.job2text">Majoring in IT, building web projects alongside coursework.</p>
+          </div>
+        </div>
+        <div class="item">
+          <span class="item-icon"><i class="fa-solid fa-language"></i></span>
+          <div class="item-body">
+            <strong data-i18n="exp.job3">九州日本語学院 (Japanese language school)</strong>
+            <span class="when" data-i18n="exp.job3when">Enrolled: 2022 · 🎓 Graduated: 2024</span>
+            <p data-i18n="exp.job3text">Japanese language studies, working towards JLPT N2.</p>
+          </div>
+        </div>
+        <div class="item">
+          <span class="item-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+          <div class="item-body">
+            <strong data-i18n="exp.job4">Hanoi College of Technology and Commerce</strong>
+            <span class="when" data-i18n="exp.job4when">🎓 Graduated: 2018 · Hanoi, Vietnam</span>
+            <p data-i18n="exp.job4text">Completed my college studies in Hanoi, Vietnam.</p>
+          </div>
         </div>
       </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap" class="reveal">
+      <div class="section-head">
+        <h3 data-i18n="road.title">Future Roadmap</h3>
+        <span class="line"></span>
+      </div>
+      <p class="muted section-intro" data-i18n="road.intro">Growing step by step — from front-end, to back-end, to
+        full-stack developer.</p>
+
+      <ol class="roadmap">
+        <li class="card step is-now">
+          <span class="step-badge" data-i18n="road.now">Now</span>
+          <div class="step-icon"><i class="fa-solid fa-palette"></i></div>
+          <h4 data-i18n="road.s1.title">Front-end</h4>
+          <p data-i18n="road.s1.text">Building responsive, user-friendly interfaces and sharpening my skills in
+            React.</p>
+          <div class="tags">
+            <span class="tag"><i class="fa-brands fa-html5"></i> HTML</span>
+            <span class="tag"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+            <span class="tag"><i class="fa-brands fa-js"></i> JavaScript</span>
+            <span class="tag"><i class="fa-brands fa-react"></i> React</span>
+          </div>
+        </li>
+
+        <li class="card step">
+          <span class="step-badge" data-i18n="road.next">Next</span>
+          <div class="step-icon"><i class="fa-solid fa-server"></i></div>
+          <h4 data-i18n="road.s2.title">Back-end</h4>
+          <p data-i18n="road.s2.text">Learning to build servers and APIs with Node.js and PHP, and to work with
+            databases.</p>
+          <div class="tags">
+            <span class="tag"><i class="fa-brands fa-node-js"></i> Node.js</span>
+            <span class="tag"><i class="fa-brands fa-php"></i> PHP</span>
+            <span class="tag"><i class="fa-solid fa-database"></i> Database</span>
+          </div>
+        </li>
+
+        <li class="card step">
+          <span class="step-badge" data-i18n="road.goal">Goal</span>
+          <div class="step-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h4 data-i18n="road.s3.title">Full-stack</h4>
+          <p data-i18n="road.s3.text">Bringing everything together to design, build and publish complete web
+            applications on my own.</p>
+          <div class="tags">
+            <span class="tag"><i class="fa-solid fa-rocket"></i> End-to-end</span>
+            <span class="tag"><i class="fa-brands fa-github"></i> GitHub</span>
+          </div>
+        </li>
+      </ol>
     </section>
 
     <!-- CONTACT -->
@@ -311,6 +408,7 @@
     <div class="rm-bubble" id="rmBubble"></div>
 
     <svg class="rm-svg" viewBox="0 0 260 300" xmlns="http://www.w3.org/2000/svg">
+      <g class="rm-head">
       <g class="rm-antenna">
         <line x1="130" y1="50" x2="130" y2="27" stroke="#1F2933" stroke-width="4" stroke-linecap="round" />
         <circle cx="130" cy="18" r="9" fill="#FFB020" stroke="#1F2933" stroke-width="4" />
@@ -325,9 +423,17 @@
       <g id="rmEyes">
         <ellipse class="rm-eye" cx="103" cy="100" rx="13" ry="15" />
         <ellipse class="rm-eye" cx="157" cy="100" rx="13" ry="15" />
+        <!-- mắt cười ^ ^ (chỉ hiện khi robot cười) -->
+        <path class="rm-happy" d="M90 106 Q103 87 116 106" />
+        <path class="rm-happy" d="M144 106 Q157 87 170 106" />
       </g>
 
-      <path d="M112 127 Q130 138 148 127" fill="none" stroke="#00C2E0" stroke-width="4" stroke-linecap="round" />
+      <ellipse class="rm-blush" cx="82" cy="124" rx="9" ry="5" />
+      <ellipse class="rm-blush" cx="178" cy="124" rx="9" ry="5" />
+
+      <path class="rm-mouth" d="M112 127 Q130 138 148 127" fill="none" stroke="#00C2E0" stroke-width="4" stroke-linecap="round" />
+      <path class="rm-mouth-smile" d="M106 122 Q130 150 154 122" fill="none" stroke="#00C2E0" stroke-width="5" stroke-linecap="round" />
+      </g><!-- /rm-head -->
 
       <rect class="rm-metal" x="112" y="162" width="36" height="14" rx="4" />
 
